@@ -1,0 +1,48 @@
+generated: '2026-07-31'
+method: searched
+source: https://exonum.com/doc/version/latest/advanced/service-testing/
+kind: local-testkit
+hosted_sandbox: false
+hosted_sandbox_note: 'Bitfury operates no hosted Exonum sandbox, test network or console, and publishes
+  no test credentials, test keys or magic values - there is nothing to issue them against, because
+  Exonum is software an operator runs themselves. What it does publish is a first-class in-process test
+  harness plus a single-command development node, which is the equivalent developer surface.'
+docs:
+- https://exonum.com/doc/version/latest/advanced/service-testing/
+- https://exonum.com/doc/version/latest/get-started/test-service/
+- https://docs.rs/exonum-testkit/
+environments:
+- name: run-dev
+  kind: local development node
+  invocation: exonum-cli run-dev --blockchain-path <path>
+  description: 'Runs a single-node blockchain with an auto-generated configuration, keeping database
+    files between restarts (since 1.0.0-rc.3). The explorer service and system API plugin are included
+    by default, so the full HTTP surface is available locally.'
+- name: testkit
+  kind: in-process test harness
+  packages:
+  - {language: rust, name: exonum-testkit, version: 1.0.0, install: 'exonum-testkit = "1.0.0" as a
+      dev-dependency'}
+  - {language: java, name: 'com.exonum.binding:exonum-testkit', version: 0.10.0}
+  description: 'Builds an in-memory blockchain inside a test process. Supports two testing styles the
+    docs name explicitly: gray-box transaction-logic testing through the service schema, and black-box
+    API testing that drives the service''s real HTTP endpoints.'
+  capabilities:
+  - Create blocks on demand (create_block_with_transaction, create_block_with_transactions,
+    create_blocks_until) instead of waiting for consensus.
+  - Choose and vary transaction ordering within a block.
+  - Take a storage snapshot and assert against the service schema.
+  - Expose the node's public and private HTTP APIs to the test via testkit.api(), with public_url and
+    private_url helpers.
+  - Configure validator and auditor counts through TestKitBuilder.
+  - Drive time with a FakeTimeProvider when testing against the time oracle.
+  - Send Protobuf-encoded payloads to POST endpoints (since 1.0.0-rc.3).
+test_values:
+  published: false
+  note: No test cards, test keys, test identifiers or fixture tokens are published; key pairs are
+    generated locally in tests (for example exonum::crypto::gen_keypair).
+x-evidence:
+  fetched: '2026-07-31'
+  urls:
+  - {url: 'https://exonum.com/doc/version/latest/advanced/service-testing/', http_status: 200}
+  - {url: 'https://exonum.com/doc/version/latest/get-started/test-service/', http_status: 200}

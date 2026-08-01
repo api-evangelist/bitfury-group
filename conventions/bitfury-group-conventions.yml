@@ -1,0 +1,84 @@
+generated: '2026-07-31'
+method: searched
+source: https://docs.rs/exonum-explorer-service/latest/exonum_explorer_service/api/index.html
+docs:
+- https://exonum.com/doc/version/latest/advanced/network/
+- https://exonum.com/doc/version/latest/architecture/transactions/
+- https://exonum.com/doc/version/latest/advanced/versioning/
+- https://docs.rs/exonum-explorer-service/latest/exonum_explorer_service/api/index.html
+scope: Exonum node HTTP API (explorer service, system API plugin, supervisor, time oracle)
+transport:
+  protocols: [https-or-http, websocket]
+  encoding: json
+  serialization_note: On-chain payloads are Protobuf messages; the HTTP/WebSocket surface exchanges their
+    JSON representation.
+endpoint_layout:
+  service_prefix: /api/services/{service_name}
+  explorer_prefix: /api/explorer
+  system_prefix: /api/system
+  servers:
+  - {name: public, purpose: client-facing read + transaction submission}
+  - {name: private, purpose: node administration and service lifecycle}
+  note: 'The docs state plainly that there is no unified format for naming endpoints or for passing GET
+    parameters across services; each service is expected to follow REST best practice on its own.'
+authentication:
+  style: ed25519-signed transactions for writes; unauthenticated reads on the public server; network
+    partitioning for the private server
+  artifact: authentication/bitfury-group-authentication.yml
+idempotency:
+  supported: false
+  note: 'Exonum deliberately goes the other way. The documented transaction pattern adds an auxiliary
+    `seed` field "to guarantee non-idempotence of transactions" so that two otherwise identical
+    transactions hash differently and both commit. There is no Idempotency-Key header, no request
+    deduplication window, and no idempotent-retry contract on the HTTP API.'
+  evidence: https://exonum.com/doc/version/latest/architecture/transactions/
+consistency:
+  model: eventual for in-pool transactions, final once committed
+  note: 'Clients MUST NOT expect read-your-write consistency after submitting a transaction: the getter
+    endpoint may return "not found" for a period governed by the node''s mempool.flush_pool_strategy
+    (order of 20 ms by default), and nodes behind a load balancer make this worse. The documented remedy
+    is to poll the getter endpoint several times with a comparable delay.'
+  finality: Once a transaction appears in a block its status can never change (consensus finality).
+pagination:
+  style: range-window
+  endpoint: /api/explorer/v1/blocks
+  params: [count, latest, earliest, skip_empty_blocks, add_blocks_time, add_precommits]
+  params_note: 'Query parameters are typed by the BlocksQuery struct in the exonum-explorer crate. `count`
+    must not exceed MAX_BLOCKS_PER_REQUEST; `latest` defaults to the current chain height and `earliest`
+    to the genesis block.'
+  response_fields: [range, blocks]
+  ordering: Blocks are returned in reverse order, latest first.
+field_expansion:
+  supported: false
+metadata:
+  supported: false
+request_tracing:
+  request_id_header: none
+versioning:
+  scheme: uri-path on service endpoints (v1) plus semantic versioning of service artifacts
+  artifact_versioning: 'Every service artifact carries a semantic version as a built-in part of its
+    identifier; clients can pin compatibility with a checked call, or read the supervisor `services`
+    endpoint. Method IDs must never be reused and removing a method is a breaking change.'
+  artifact: lifecycle/bitfury-group-lifecycle.yml
+errors:
+  envelope: exonum.runtime.ExecutionError (kind, code, description, runtime_id, call_site)
+  format: protobuf-derived JSON, not RFC 9457 problem+json
+  artifact: errors/bitfury-group-problem-types.yml
+rate_limiting:
+  documented: false
+  note: 'No rate-limit headers or quotas are defined by the framework; a node operator supplies their own.
+    The node config does expose an api.json_payload_size limit for maximum accepted JSON body size.'
+events:
+  artifact: asyncapi/bitfury-group-exonum-events.yml
+  note: Pub/sub over WebSocket; no HTTP webhooks.
+proofs:
+  supported: true
+  note: 'The distinguishing convention of the API: read responses can carry Merkle / Merkle Patricia
+    proofs (ListProof, MapProof, CallProof, BlockProof) so a light client can verify a response was
+    authorized by a supermajority of validators rather than trusting the node.'
+  artifact: data-model/bitfury-group-data-model.yml
+x-evidence:
+  fetched: '2026-07-31'
+  source_files:
+  - https://github.com/exonum/exonum/blob/master/services/explorer/src/api.rs
+  - https://github.com/exonum/exonum-doc/blob/master/src/architecture/transactions.md

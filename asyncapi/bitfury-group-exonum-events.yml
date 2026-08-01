@@ -1,0 +1,57 @@
+generated: '2026-07-31'
+method: searched
+source: https://docs.rs/exonum-explorer-service/1.0.0/exonum_explorer_service/api/websocket/index.html
+spec_type: none
+spec_note: 'Bitfury publishes no AsyncAPI document for Exonum. This file captures the real, documented
+  event surface verbatim from the explorer service reference so the async contract is discoverable; it
+  is NOT an AsyncAPI specification and must not be treated as one.'
+surface: websocket-subscriptions
+transport: websocket
+webhooks: false
+webhooks_note: 'Exonum ships no HTTP webhook/callback delivery. Push events are delivered to light
+  clients over WebSocket publisher-subscriber connections opened against the node the client talks to.'
+encoding: json
+docs:
+- https://exonum.com/doc/version/latest/advanced/other-services/
+- https://exonum.com/doc/version/latest/advanced/network/
+- https://docs.rs/exonum-explorer-service/1.0.0/exonum_explorer_service/api/websocket/index.html
+channels:
+- path: /api/explorer/v1/ws
+  subscription: none
+  description: Opens a WebSocket connection with no initial subscription; the client sets subscriptions
+    itself with an IncomingMessage.
+- path: /api/explorer/v1/blocks/subscribe
+  subscription: blocks
+  description: Opens a WebSocket connection pre-subscribed to block-commitment events.
+- path: /api/explorer/v1/transactions/subscribe
+  subscription: transactions
+  description: Opens a WebSocket connection pre-subscribed to transaction-commitment events. Subscription
+    parameters are encoded in the query string as a TransactionFilter (optional service ID and method
+    ID filters).
+events:
+- name: block
+  trigger: A new block is committed to the blockchain.
+  payload: Notification::Block
+- name: transaction
+  trigger: A transaction is committed in a block. Optionally filtered by service ID and method ID within
+    the service.
+  payload: Notification::Transaction
+operations:
+- name: subscribe
+  direction: client-to-server
+  payload: IncomingMessage / SubscriptionType
+  description: A single client may hold multiple subscriptions on one connection.
+- name: submit-transaction
+  direction: client-to-server
+  payload: TransactionHex
+  description: Signed transactions may be submitted over the same WebSocket connection; the server answers
+    each IncomingMessage with a Response wrapping a TransactionResponse.
+served_by:
+  service: exonum-explorer-service
+  crate: https://crates.io/crates/exonum-explorer-service
+  deployment: self-hosted (each Exonum node operator exposes its own public HTTP/WS server)
+x-evidence:
+  fetched: '2026-07-31'
+  source_files:
+  - https://github.com/exonum/exonum/blob/master/services/explorer/src/api/websocket/mod.rs
+  - https://github.com/exonum/exonum-doc/blob/master/src/advanced/other-services.md

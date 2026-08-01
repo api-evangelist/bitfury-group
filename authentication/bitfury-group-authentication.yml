@@ -1,0 +1,57 @@
+generated: '2026-07-31'
+method: searched
+source: https://exonum.com/doc/version/latest/advanced/network/
+docs:
+- https://exonum.com/doc/version/latest/advanced/network/
+- https://exonum.com/doc/version/latest/architecture/transactions/
+- https://exonum.com/doc/version/latest/architecture/clients/
+note: 'Derived mechanically first with 0-working/derive-authentication.py, which found no OpenAPI
+  securitySchemes because Bitfury publishes no OpenAPI for Exonum. The profile below is read from the
+  published Exonum documentation and source, and describes the framework''s actual authorization model
+  rather than an HTTP securityScheme list.'
+summary:
+  types: [signature, network-partition, transport-encryption]
+  api_key_in: []
+  oauth2_flows: []
+  oauth2: false
+  openid_connect: false
+  mutual_tls: false
+  bearer_tokens: false
+schemes:
+- name: ed25519-transaction-signature
+  type: signature
+  algorithm: Ed25519
+  applies_to: write operations (transactions submitted over REST or WebSocket)
+  description: 'Transactions are authenticated by an Ed25519 digital signature carried in the JSON
+    serialization of the transaction, not by an HTTP credential. The caller is identified by the
+    transaction author''s public key, by a calling service instance ID, or by the blockchain itself
+    (see exonum.runtime.Caller in grpc/bitfury-group-exonum-runtime-auth.proto).'
+  source: grpc/bitfury-group-exonum-runtime-auth.proto
+- name: unauthenticated-public-read
+  type: none
+  applies_to: read operations on the public HTTP server
+  description: 'GET endpoints defined by services on the public HTTP server are generally not
+    authenticated. Integrity is provided by Merkle proofs rather than by access control: a light client
+    can verify that a response was authorized by a supermajority of validators.'
+- name: private-http-server
+  type: network-partition
+  applies_to: administrative operations (system API plugin, supervisor private endpoints)
+  description: 'The Rust runtime runs two HTTP servers, public and private, with separate endpoint sets
+    and separate ports. Privileged operations - node info/stats/peers/consensus status/shutdown, artifact
+    deployment, config proposals - are only wired onto the private server, which the operator is expected
+    to keep off the public network. There is no token or key scheme on these endpoints; access control is
+    the deployment''s responsibility.'
+- name: noise-protocol-p2p
+  type: transport-encryption
+  applies_to: full-node to full-node connections
+  description: All peer-to-peer connections between full nodes are encrypted with the Noise Protocol, and
+    every full node is authenticated with public-key cryptography.
+gaps:
+- No OAuth 2.0, OpenID Connect, API key or bearer-token scheme exists anywhere in the Exonum HTTP surface.
+- Authorization of the private HTTP server is delegated entirely to network placement, so an operator who
+  exposes it inherits an unauthenticated administrative API.
+x-evidence:
+  fetched: '2026-07-31'
+  source_files:
+  - https://github.com/exonum/exonum/blob/master/components/system-api/src/private.rs
+  - https://github.com/exonum/exonum-proto-sources/blob/master/src/exonum/runtime/auth.proto

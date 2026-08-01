@@ -1,18 +1,64 @@
 aid: bitfury-group
 name: BitFury
-description: 'BitFury is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'Bitfury Group is a blockchain technology company founded in 2011 as one of the earliest
+  Bitcoin mining hardware makers and full-cycle infrastructure providers, and now operating as a
+  technology incubator headquartered in London with data-center and hardware operations behind Bitcoin
+  transaction processing. Its developer-facing surface is Exonum, the open-source (Apache-2.0) framework
+  Bitfury Group Limited built for private and permissioned blockchain applications: an Exonum node
+  exposes REST and WebSocket endpoints through its explorer service, system API plugin, supervisor and
+  time-oracle services, and ships light clients for JavaScript, Python and Java plus a Rust crate family,
+  a node CLI and published Protobuf message definitions. Bitfury also anchors permissioned chains into
+  the Bitcoin blockchain and incubates Cipher Mining, Crystal, LiquidStack and Axelera AI.'
+image: https://bitfury.com/assets/img/logo.svg
 url: https://raw.githubusercontent.com/api-evangelist/bitfury-group/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
+x-tier: profiled
+x-tier-reason: enrichment
 specificationVersion: '0.20'
 created: '2026-07-31'
 modified: '2026-07-31'
 tags:
 - Company
-apis: []
+- Blockchain
+- Bitcoin
+- Cryptocurrency
+- Distributed Ledger
+- Permissioned Blockchain
+- Open Source
+- Data Centers
+- Mining Hardware
+- Enterprise Blockchain
+apis:
+- aid: bitfury-group:exonum-node-http-api
+  name: Exonum Node HTTP API
+  description: 'The HTTP surface an Exonum node serves. The explorer service exposes REST endpoints under
+    /api/explorer (blocks, block, transactions, call_status) plus a WebSocket interface for submitting
+    signed transactions and subscribing to block- and transaction-commit events; the system API plugin
+    exposes node info, stats, peers, consensus status and shutdown under /api/system on the private HTTP
+    server; built-in services (supervisor, time oracle) expose their own endpoints under
+    /api/services/{service_name}. Exonum is self-hosted software, so there is no vendor-operated base
+    URL - each operator runs their own node and chooses its public and private ports.'
+  humanURL: https://exonum.com/doc/version/latest/
+  tags:
+  - Blockchain
+  - Permissioned Blockchain
+  - Explorer
+  - WebSockets
+  x-deployment: self-hosted
+  x-deployment-note: 'No vendor-hosted base URL exists, and none is asserted here; the documentation
+    demonstrates the API against a locally run node (public HTTP server 8080, private 8081 in the
+    tutorials).'
+  properties:
+  - type: Documentation
+    url: https://exonum.com/doc/version/latest/
+  - type: APIReference
+    url: https://docs.rs/exonum-explorer-service/latest/exonum_explorer_service/api/index.html
+  - type: SourceCode
+    url: https://github.com/exonum/exonum
+  - type: Webhooks
+    name: Exonum explorer WebSocket event subscriptions (pub/sub; no HTTP webhooks)
+    url: asyncapi/bitfury-group-exonum-events.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -20,4 +66,132 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
+  url: https://bitfury.com/
+- type: DeveloperPortal
+  url: https://exonum.com/developers.html
+- type: Documentation
+  url: https://exonum.com/doc/version/latest/
+- type: APIReference
+  url: https://docs.rs/exonum-explorer-service/latest/exonum_explorer_service/api/index.html
+- type: GettingStarted
+  url: https://exonum.com/doc/version/latest/get-started/design-overview/
+- type: Support
+  url: https://gitter.im/exonum/exonum
+- type: GitHubOrganization
+  url: https://github.com/exonum
+- type: SourceCode
+  url: https://github.com/exonum/exonum
+- type: Roadmap
+  url: https://exonum.com/doc/version/latest/roadmap/
+- type: FAQ
+  url: https://exonum.com/faq.html
+- type: License
+  url: https://github.com/exonum/exonum/blob/master/LICENSE
+- type: TermsOfService
+  url: https://bitfury.com/terms-of-service
+- type: PrivacyPolicy
+  url: https://bitfury.com/privacy-policy
+- type: Blog
+  url: https://bitfury.com/news
+- type: Contact
+  url: https://bitfury.com/contacts
+- type: SecondaryMarket
   url: https://forgeglobal.com/bitfury-group_stock/
+- type: ChangeLog
+  url: https://github.com/exonum/exonum/blob/master/CHANGELOG.md
+- type: ChangeLog
+  name: Exonum changelog (captured)
+  url: changelog/bitfury-group-changelog.yml
+- type: Packages
+  url: packages/bitfury-group-packages.yml
+- type: SDKs
+  name: Exonum light clients and framework packages (Rust, JavaScript, Python, Java)
+  url: packages/bitfury-group-packages.yml
+- type: CLI
+  name: exonum-cli node management tool
+  url: cli/bitfury-group-cli.yml
+- type: Sandbox
+  name: Exonum testkit and run-dev local node
+  url: sandbox/bitfury-group-sandbox.yml
+- type: Authentication
+  url: authentication/bitfury-group-authentication.yml
+- type: Conventions
+  url: conventions/bitfury-group-conventions.yml
+- type: ErrorCatalog
+  name: Exonum execution error catalog
+  url: errors/bitfury-group-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/bitfury-group-lifecycle.yml
+- type: Deprecation
+  name: Exonum artifact versioning and method-removal policy
+  url: https://exonum.com/doc/version/latest/advanced/versioning/
+- type: Conformance
+  url: conformance/bitfury-group-conformance.yml
+- type: DataModel
+  url: data-model/bitfury-group-data-model.yml
+- type: Webhooks
+  name: Exonum explorer WebSocket event subscriptions (pub/sub; no HTTP webhooks)
+  url: asyncapi/bitfury-group-exonum-events.yml
+- type: DomainSecurity
+  url: security/bitfury-group-domain-security.yml
+- type: LLMsTxt
+  url: llms/bitfury-group-llms.txt
+- type: Protobuf
+  name: exonum.Block, TxLocation, CallInBlock, consensus Config
+  url: grpc/bitfury-group-exonum-blockchain.proto
+- type: Protobuf
+  name: exonum consensus messages (SignedMessage, CoreMessage, Precommit)
+  url: grpc/bitfury-group-exonum-messages.proto
+- type: Protobuf
+  name: exonum.crypto types (Hash, PublicKey, Signature)
+  url: grpc/bitfury-group-exonum-crypto-types.proto
+- type: Protobuf
+  name: exonum.runtime base (CallInfo, AnyTx, ArtifactId, InstanceSpec)
+  url: grpc/bitfury-group-exonum-runtime-base.proto
+- type: Protobuf
+  name: exonum.runtime auth (Caller)
+  url: grpc/bitfury-group-exonum-runtime-auth.proto
+- type: Protobuf
+  name: exonum.runtime errors (ErrorKind, ExecutionError, CallSite)
+  url: grpc/bitfury-group-exonum-runtime-errors.proto
+- type: Protobuf
+  name: exonum.runtime service lifecycle (ArtifactState, InstanceStatus, migrations)
+  url: grpc/bitfury-group-exonum-runtime-lifecycle.proto
+- type: Protobuf
+  name: exonum proofs (BlockProof, IndexProof, CallProof)
+  url: grpc/bitfury-group-exonum-proofs.proto
+- type: Protobuf
+  name: exonum merkelized list proof
+  url: grpc/bitfury-group-exonum-proof-list_proof.proto
+- type: Protobuf
+  name: exonum merkelized map proof
+  url: grpc/bitfury-group-exonum-proof-map_proof.proto
+- type: Protobuf
+  name: exonum key-value sequence
+  url: grpc/bitfury-group-exonum-key_value_sequence.proto
+- type: Protobuf
+  name: exonum common BitVec
+  url: grpc/bitfury-group-exonum-common-bit_vec.proto
+x-enrichment:
+  date: '2026-07-31'
+  status: enriched
+  artifacts_added: 26
+  pass: local-v1
+x-enrichment-notes:
+  no_openapi: 'Bitfury publishes no OpenAPI, Swagger, GraphQL or AsyncAPI description for Exonum. Probed
+    /openapi.json, /swagger.json, /api-docs and /llms.txt on both bitfury.com and exonum.com (all 404 on
+    2026-07-31); the published reference is hand-written crate documentation on docs.rs. No spec was
+    authored on the provider''s behalf.'
+  no_agent_card: /.well-known/agent-card.json and /.well-known/agent.json return 404 on both hosts; no
+    A2A card exists and none was written.
+  no_mcp: No official or community MCP server for Exonum or Bitfury was found, and there is no OpenAPI to
+    derive a candidate tool list from, so mcp/ was skipped.
+  no_skills: 'skills/ was skipped by the pipeline rule that agent skills must be grounded in real
+    operationIds from an OpenAPI: none exists.'
+  no_idempotency: 'Exonum documents the opposite of an idempotency contract - transactions carry a seed
+    field expressly to guarantee non-idempotence - so no Idempotency pointer is emitted.'
+  no_security_program: probe-security-programs.py found no security.txt, no disclosure page and no trust
+    center on 2026-07-31, so no Security, VulnerabilityDisclosure, TrustCenter or Compliance pointer is
+    emitted.
+  no_well_known: 'Every /.well-known/ path probed returned 404 on both hosts; well-known/ holds the probe
+    record only and carries no WellKnown pointer.'

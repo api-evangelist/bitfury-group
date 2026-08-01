@@ -1,0 +1,82 @@
+generated: '2026-07-31'
+method: derived
+source: grpc/bitfury-group-exonum-runtime-errors.proto
+also_source:
+- https://github.com/exonum/exonum/blob/master/exonum/src/runtime/error/core_errors.rs
+- https://github.com/exonum/exonum/blob/master/exonum/src/runtime/error/common_errors.rs
+format: exonum-execution-error
+format_note: 'Not RFC 9457. Exonum returns execution failures as an `ExecutionError` message defined in
+  Protobuf and surfaced as JSON: `{kind, code, description, runtime_id | no_runtime_id, call_site |
+  no_call_site}`. The `code` namespace is scoped by `kind`, so code 3 means different things for a core
+  error, a common error, a runtime error and a service error. The `description` is advisory only and is
+  excluded from the error serialization when a proof of error authenticity is verified.'
+envelope:
+  message: exonum.runtime.ExecutionError
+  fields:
+  - {name: kind, type: ErrorKind, description: type of the error, used to disambiguate the origin}
+  - {name: code, type: uint32, description: error code, meaning depends on kind}
+  - {name: description, type: string, description: optional human-readable description, not part of the
+      authenticated serialization}
+  - {name: runtime_id, type: uint32, description: set when the error is attributable to a runtime}
+  - {name: call_site, type: CallSite, description: set when the error is attributable to a service call
+      (call_type, instance_id, method_id, interface)}
+  success_wrapper: exonum.runtime.ExecutionStatus (oneof ok | error)
+kinds:
+- {value: 0, name: UNEXPECTED, description: An unexpected error which does not have a specific cause;
+    the description is the only source of information.}
+- {value: 1, name: CORE, description: An error specific to the core.}
+- {value: 2, name: RUNTIME, description: An error specific to a certain runtime.}
+- {value: 3, name: SERVICE, description: An error specific to a certain service.}
+- {value: 4, name: COMMON, description: A common error which can occur in different contexts.}
+problems:
+- {kind: core, code: 0, title: IncorrectRuntime, detail: Runtime identifier is incorrect in this context.}
+- {kind: core, code: 1, title: UnknownArtifactId, detail: Artifact identifier is unknown.}
+- {kind: core, code: 2, title: ArtifactAlreadyDeployed, detail: Artifact with the given identifier is
+    already deployed.}
+- {kind: core, code: 3, title: ArtifactNotDeployed, detail: Artifact with the given identifier is not
+    deployed.}
+- {kind: core, code: 4, title: ServiceNameExists, detail: Specified service name is already used.}
+- {kind: core, code: 5, title: ServiceIdExists, detail: Specified service identifier is already used.}
+- {kind: core, code: 6, title: ServiceNotActive, detail: Specified service is not active.}
+- {kind: core, code: 7, title: IncorrectInstanceId, detail: Suitable runtime for the given service
+    instance ID is not found.}
+- {kind: core, code: 8, title: StackOverflow, detail: Maximum depth of the call stack has been reached.}
+- {kind: core, code: 9, title: ServicePending, detail: Service instance is already transitioning to a new
+    status.}
+- {kind: core, code: 10, title: InvalidServiceTransition, detail: Requested service transition is invalid
+    given the current service status.}
+- {kind: core, code: 11, title: CannotUpgradeService, detail: The artifact to migrate the service to is
+    not a newer version of the current service artifact.}
+- {kind: core, code: 12, title: NoMigration, detail: Attempt to rollback or flush migration for a service
+    which has no pending migration.}
+- {kind: core, code: 13, title: CannotResumeService, detail: Attempt to resume the service instance with
+    the wrong artifact - different name or inappropriate version.}
+- {kind: core, code: 14, title: IncorrectCall, detail: Incorrect call handler - an inner call returned an
+    error but it was not propagated.}
+- {kind: core, code: 15, title: CannotUnloadArtifact, detail: Cannot unload artifact.}
+- {kind: common, code: 0, title: NoSuchInterface, detail: The interface is absent in the service.}
+- {kind: common, code: 1, title: NoSuchMethod, detail: The method is absent in the service.}
+- {kind: common, code: 2, title: UnauthorizedCaller, detail: This caller is not authorized to call this
+    method.}
+- {kind: common, code: 3, title: MalformedArguments, detail: Malformed arguments for calling a service
+    interface method.}
+- {kind: common, code: 4, title: MethodRemoved, detail: Method with the provided ID existed in the past
+    but is now removed.}
+- {kind: common, code: 5, title: FeatureNotSupported, detail: Transition between the provided service
+    states is not supported by the runtime.}
+service_errors:
+  note: 'Service error codes (kind SERVICE) are defined by each service, not by the framework. Read them
+    from the individual service crate; e.g. exonum-supervisor and exonum-time each define their own
+    numbered error enum.'
+call_site_types:
+- {value: 0, name: METHOD, description: Service method.}
+- {value: 1, name: CONSTRUCTOR, description: Service constructor.}
+- {value: 2, name: BEFORE_TRANSACTIONS, description: Hook executing before processing transactions in a
+    block.}
+- {value: 3, name: AFTER_TRANSACTIONS, description: Hook executing after processing transactions in a
+    block.}
+- {value: 4, name: RESUME, description: Service resuming routine.}
+x-evidence:
+  fetched: '2026-07-31'
+  derived_from: [grpc/bitfury-group-exonum-runtime-errors.proto, exonum core_errors.rs, exonum
+      common_errors.rs]

@@ -1,0 +1,64 @@
+generated: '2026-07-31'
+method: searched
+source: https://exonum.com/doc/version/latest/advanced/versioning/
+versioning:
+  scheme: semver
+  current: 1.0.0
+  released: '2020-03-31'
+  docs: https://exonum.com/doc/version/latest/advanced/versioning/
+  policy: 'The project states it adheres to Semantic Versioning 2.0.0, and semantic versioning is a
+    first-class, built-in part of a service artifact identifier so that clients can reason about
+    compatibility. The docs are themselves versioned under /doc/version/<version>/.'
+  api_versioning: URI path segment on service endpoints (for example /api/explorer/v1/blocks).
+deprecation:
+  policy_url: https://exonum.com/doc/version/latest/advanced/versioning/
+  sunset_header: false
+  policy: 'Exonum publishes versioning guidance rather than a dated deprecation calendar. The documented
+    rules: the semantics of a method with a given ID must never change and a method ID must never be
+    reused; removing a method or disabling processing for certain payloads is a breaking change; a
+    removed method must report the CommonError::MethodRemoved (kind common, code 4) execution error so
+    clients get an explicit signal instead of an arbitrary interpretation. The docs recommend that
+    deprecated HTTP endpoints emit a deprecation warning via the Deprecation header draft
+    (draft-dalal-deprecation-header-02) or the standard Warning header, but the framework does not send
+    either automatically.'
+  runtime_signal: CommonError::MethodRemoved
+  recommended_headers: [Deprecation, Warning]
+support:
+  channels:
+  - {kind: chat, url: 'https://gitter.im/exonum/exonum'}
+  - {kind: telegram, url: 'https://t.me/exonum_blockchain'}
+  - {kind: issues, url: 'https://github.com/exonum/exonum/issues'}
+sla:
+  published: false
+  note: Exonum is self-hosted open-source software; availability is the node operator's responsibility
+    and Bitfury publishes no SLA for it.
+status_page:
+  published: false
+  note: 'No status page exists, and none would be meaningful: there is no vendor-operated Exonum service
+    to report on. Probed bitfury.com and exonum.com for a status host on 2026-07-31 with no hit.'
+releases:
+  source: https://github.com/exonum/exonum/releases
+  latest: {tag: v1.0.0, date: '2020-03-31'}
+  recent:
+  - {tag: v1.0.0, date: '2020-03-31'}
+  - {tag: v1.0.0-rc.3, date: '2020-03-25'}
+  - {tag: v1.0.0-rc.2, date: '2020-03-13'}
+  - {tag: v1.0.0-rc.1, date: '2020-02-07'}
+  - {tag: v0.13.0-rc.2, date: '2019-12-04'}
+maintenance_state:
+  repository: https://github.com/exonum/exonum
+  archived: false
+  last_commit: '2024-02-25'
+  last_release: '2020-03-31'
+  unreleased_changes: true
+  note: 'The repository is not archived and carries an [Unreleased] CHANGELOG section with work landed
+    after 1.0.0, but no release has been cut since March 2020 and the last push was February 2024. Treat
+    Exonum as stable-but-dormant rather than actively released.'
+  license: Apache-2.0
+deprecated_operations: []
+x-evidence:
+  fetched: '2026-07-31'
+  urls:
+  - {url: 'https://api.github.com/repos/exonum/exonum', http_status: 200}
+  - {url: 'https://api.github.com/repos/exonum/exonum/releases', http_status: 200}
+  - {url: 'https://exonum.com/doc/version/latest/advanced/versioning/', http_status: 200}

@@ -1,0 +1,169 @@
+generated: '2026-07-31'
+method: derived
+source: grpc/ (exonum-proto-sources, saved verbatim)
+note: 'Derived from the Protobuf message definitions Bitfury publishes for Exonum, not from an OpenAPI -
+  no OpenAPI exists. Field names, types and cardinality are taken verbatim from the .proto files in this
+  repo; relationships are read from message-typed fields and from hash references between messages.'
+entities:
+- name: Block
+  proto: exonum/blockchain.proto
+  description: A committed block header.
+  fields: [proposer_id, height, tx_count, prev_hash, tx_hash, state_hash, error_hash, additional_headers]
+  identifier: height
+- name: AdditionalHeaders
+  proto: exonum/blockchain.proto
+  description: Extensible key-value header set attached to a block.
+  fields: [headers]
+- name: Precommit
+  proto: exonum/messages.proto
+  description: A validator's endorsement of a block.
+  fields: [validator, epoch, round, propose_hash, block_hash, time]
+- name: SignedMessage
+  proto: exonum/messages.proto
+  description: Envelope carrying any serialized Exonum message with its author public key and Ed25519
+    signature.
+  fields: [payload, author, signature]
+- name: CoreMessage
+  proto: exonum/messages.proto
+  description: 'Oneof over the core message kinds: a transaction (AnyTx) or a Precommit.'
+  fields: [any_tx, precommit]
+- name: AnyTx
+  proto: exonum/runtime/base.proto
+  description: A transaction - dispatch information plus opaque serialized arguments.
+  fields: [call_info, arguments]
+- name: CallInfo
+  proto: exonum/runtime/base.proto
+  description: Unique service transaction identifier (which service instance, which method).
+  fields: [instance_id, method_id]
+- name: TxLocation
+  proto: exonum/blockchain.proto
+  description: Where a transaction sits in the chain.
+  fields: [block_height, position_in_block]
+- name: CallInBlock
+  proto: exonum/blockchain.proto
+  description: Location of an isolated call within a block - a transaction index, or a before/after
+    transactions hook of a service.
+  fields: [transaction, before_transactions, after_transactions]
+- name: ArtifactId
+  proto: exonum/runtime/base.proto
+  description: Identifies a deployable service artifact - the class, in the docs' analogy.
+  fields: [runtime_id, name, version]
+  identifier: name + version
+- name: ArtifactSpec
+  proto: exonum/runtime/base.proto
+  fields: [artifact, payload]
+- name: ArtifactState
+  proto: exonum/runtime/lifecycle.proto
+  fields: [deploy_spec, status]
+  enums: {status: [UNLOADING, DEPLOYING, ACTIVE]}
+- name: InstanceSpec
+  proto: exonum/runtime/base.proto
+  description: A service instance - the object, in the docs' analogy.
+  fields: [id, name, artifact]
+  identifier: name
+  constraint: 'name must match [a-zA-Z0-9/\:-_]+'
+- name: InstanceState
+  proto: exonum/runtime/lifecycle.proto
+  fields: [spec, status, pending_status, data_version]
+- name: InstanceStatus
+  proto: exonum/runtime/lifecycle.proto
+  fields: [simple, migration]
+  enums: {simple: [NONE, ACTIVE, STOPPED, FROZEN]}
+- name: InstanceMigration
+  proto: exonum/runtime/lifecycle.proto
+  fields: [target, end_version, completed_hash]
+- name: InstanceInitParams
+  proto: exonum/runtime/lifecycle.proto
+  fields: [instance_spec, constructor]
+- name: GenesisConfig
+  proto: exonum/runtime/lifecycle.proto
+  fields: [consensus_config, artifacts, builtin_instances]
+- name: Config
+  proto: exonum/blockchain.proto
+  description: Consensus algorithm parameters.
+  fields: [validator_keys, first_round_timeout, status_timeout, peers_timeout, txs_block_limit,
+    max_message_len, min_propose_timeout, max_propose_timeout, propose_timeout_threshold]
+- name: ValidatorKeys
+  proto: exonum/blockchain.proto
+  fields: [consensus_key, service_key]
+- name: Caller
+  proto: exonum/runtime/auth.proto
+  description: Authorization of a service call - transaction author key, calling service instance, or the
+    blockchain itself.
+  fields: [transaction_author, instance_id, blockchain]
+- name: ExecutionError
+  proto: exonum/runtime/errors.proto
+  fields: [kind, code, description, runtime_id, call_site]
+- name: CallSite
+  proto: exonum/runtime/errors.proto
+  fields: [call_type, instance_id, method_id, interface]
+- name: ExecutionStatus
+  proto: exonum/runtime/errors.proto
+  fields: [ok, error]
+- name: MigrationStatus
+  proto: exonum/runtime/lifecycle.proto
+  fields: [hash, error]
+- name: ListProof
+  proto: exonum/proof/list_proof.proto
+  description: Merkle proof for an element of a merkelized list.
+- name: MapProof
+  proto: exonum/proof/map_proof.proto
+  description: Merkle Patricia proof for an entry of a merkelized map.
+- name: BlockProof
+  proto: exonum/proofs.proto
+  description: Block header plus the precommits that authorize it.
+- name: IndexProof
+  proto: exonum/proofs.proto
+- name: CallProof
+  proto: exonum/proofs.proto
+- name: PublicKey
+  proto: exonum/crypto/types.proto
+- name: Signature
+  proto: exonum/crypto/types.proto
+- name: Hash
+  proto: exonum/crypto/types.proto
+relationships:
+- {from: Block, to: Block, kind: belongs_to, via: prev_hash, note: chain link to the previous block}
+- {from: Block, to: AdditionalHeaders, kind: has_one, via: additional_headers}
+- {from: Block, to: Hash, kind: has_many, via: 'tx_hash, state_hash, error_hash'}
+- {from: Precommit, to: Block, kind: belongs_to, via: block_hash}
+- {from: BlockProof, to: Precommit, kind: has_many, via: precommits}
+- {from: SignedMessage, to: PublicKey, kind: has_one, via: author}
+- {from: SignedMessage, to: Signature, kind: has_one, via: signature}
+- {from: CoreMessage, to: AnyTx, kind: has_one, via: any_tx}
+- {from: CoreMessage, to: Precommit, kind: has_one, via: precommit}
+- {from: AnyTx, to: CallInfo, kind: has_one, via: call_info}
+- {from: CallInfo, to: InstanceSpec, kind: belongs_to, via: instance_id}
+- {from: TxLocation, to: Block, kind: belongs_to, via: block_height}
+- {from: CallInBlock, to: InstanceSpec, kind: belongs_to, via: 'before_transactions / after_transactions
+    service identifier'}
+- {from: InstanceSpec, to: ArtifactId, kind: belongs_to, via: artifact}
+- {from: InstanceState, to: InstanceSpec, kind: has_one, via: spec}
+- {from: InstanceState, to: InstanceStatus, kind: has_one, via: 'status, pending_status'}
+- {from: InstanceStatus, to: InstanceMigration, kind: has_one, via: migration}
+- {from: InstanceMigration, to: ArtifactId, kind: belongs_to, via: target}
+- {from: InstanceInitParams, to: InstanceSpec, kind: has_one, via: instance_spec}
+- {from: GenesisConfig, to: Config, kind: has_one, via: consensus_config}
+- {from: GenesisConfig, to: ArtifactSpec, kind: has_many, via: artifacts}
+- {from: GenesisConfig, to: InstanceInitParams, kind: has_many, via: builtin_instances}
+- {from: ArtifactSpec, to: ArtifactId, kind: has_one, via: artifact}
+- {from: ArtifactState, to: ArtifactSpec, kind: has_one, via: deploy_spec}
+- {from: Config, to: ValidatorKeys, kind: has_many, via: validator_keys}
+- {from: ValidatorKeys, to: PublicKey, kind: has_many, via: 'consensus_key, service_key'}
+- {from: Caller, to: PublicKey, kind: has_one, via: transaction_author}
+- {from: Caller, to: InstanceSpec, kind: belongs_to, via: instance_id}
+- {from: ExecutionError, to: CallSite, kind: has_one, via: call_site}
+- {from: ExecutionStatus, to: ExecutionError, kind: has_one, via: error}
+- {from: CallSite, to: InstanceSpec, kind: belongs_to, via: instance_id}
+domains:
+- {name: consensus, entities: [Block, Precommit, Config, ValidatorKeys, CoreMessage, SignedMessage]}
+- {name: transactions, entities: [AnyTx, CallInfo, TxLocation, CallInBlock, Caller]}
+- {name: service-lifecycle, entities: [ArtifactId, ArtifactSpec, ArtifactState, InstanceSpec,
+      InstanceState, InstanceStatus, InstanceMigration, InstanceInitParams, GenesisConfig,
+      MigrationStatus]}
+- {name: errors, entities: [ExecutionError, ExecutionStatus, CallSite]}
+- {name: proofs, entities: [ListProof, MapProof, BlockProof, IndexProof, CallProof]}
+- {name: crypto, entities: [PublicKey, Signature, Hash]}
+x-evidence:
+  fetched: '2026-07-31'
+  derived_from: grpc/bitfury-group-exonum-*.proto

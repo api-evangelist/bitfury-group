@@ -1,0 +1,63 @@
+generated: '2026-07-31'
+method: searched
+source: https://github.com/exonum/exonum/blob/master/CHANGELOG.md
+url: https://github.com/exonum/exonum/blob/master/CHANGELOG.md
+releases_url: https://github.com/exonum/exonum/releases
+scheme: semver
+current_version: 1.0.0
+current_released: '2020-03-31'
+format: keep-a-changelog style markdown, sections grouped by crate
+scope: 'The Exonum monorepo changelog covers every crate in the framework (exonum, exonum-node,
+  exonum-cli, exonum-api, exonum-merkledb, exonum-rust-runtime, exonum-supervisor, exonum-testkit).'
+window: recent entries only; the file itself carries full history back to 0.1
+entries:
+- version: Unreleased
+  date: null
+  breaking: true
+  highlights:
+  - 'exonum-merkledb: the chrono crate was replaced with time, and protobuf was bumped to version 3
+    (breaking).'
+  - 'exonum-api: the maximum accepted JSON payload size is now configurable in node.toml via
+    api.json_payload_size.'
+  - 'exonum-node: the proposer module was extended to also remove transactions from the unconfirmed pool
+    and renamed to pool.'
+  - 'exonum: transaction correctness verification results can now be cached; backtraces are included in
+    ExecutionError.'
+  - 'exonum-cli: domain names may now be used alongside IP addresses when generating configs and in the
+    connect list.'
+- version: 1.0.0
+  date: '2020-03-31'
+  breaking: true
+  highlights:
+  - 'Breaking: ApiManagerConfig in exonum-api was made non-exhaustive.'
+  - 'exonum-node: nodes terminate gracefully on SIGINT/SIGTERM/SIGQUIT (Unix) or ctrl+c (Windows), with
+    NodeBuilder::disable_signals() to opt out.'
+  - 'Bug fix: exonum-cli run-dev no longer errors when configuration files already exist in the
+    blockchain path.'
+- version: 1.0.0-rc.3
+  date: '2020-03-25'
+  breaking: true
+  highlights:
+  - 'Breaking: exonum-supervisor POST endpoints now expect JSON-encoded input rather than hex-encoded
+    Protobuf - a direct change to the HTTP contract.'
+  - 'Breaking: exonum-cli run-dev reworked - it no longer clears database files and artifacts-dir was
+    renamed to blockchain-path.'
+  - 'exonum-node: nodes can customize how block proposals are created and can skip block generation at a
+    consensus epoch.'
+  - 'exonum-rust-runtime: ServiceApiScope::pb_endpoint_mut accepts Protobuf-encoded messages on
+    endpoints.'
+- version: 1.0.0-rc.2
+  date: '2020-03-13'
+  breaking: true
+- version: 1.0.0-rc.1
+  date: '2020-02-07'
+  breaking: true
+- version: 0.13.0-rc.2
+  date: '2019-12-04'
+  breaking: true
+note: 'No release has been cut since 1.0.0 in March 2020; the [Unreleased] section accumulates work
+  landed through the last repository push in February 2024. See lifecycle/bitfury-group-lifecycle.yml.'
+x-evidence:
+  fetched: '2026-07-31'
+  url: https://raw.githubusercontent.com/exonum/exonum/master/CHANGELOG.md
+  http_status: 200

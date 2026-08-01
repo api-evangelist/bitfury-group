@@ -1,0 +1,182 @@
+generated: '2026-07-31'
+method: searched
+source: https://crates.io/, https://registry.npmjs.org/, https://pypi.org/, https://search.maven.org/
+notes: 'All packages below are published by the Exonum team (Bitfury Group Limited) under the exonum
+  GitHub organization and were verified live against each registry API on 2026-07-31. Rust crates are
+  the framework itself and its components; the JavaScript, Python and Java packages are the light
+  clients and bindings a developer uses to talk to an Exonum node HTTP API.'
+packages:
+- language: javascript
+  registry: npm
+  name: exonum-client
+  url: https://www.npmjs.com/package/exonum-client
+  install: npm install exonum-client
+  version: 0.18.4
+  published: '2021-01-11'
+  repository: https://github.com/exonum/exonum-client
+  description: Light Client for Exonum Blockchain
+  official: true
+- language: javascript
+  registry: npm
+  name: exonum-client-anchoring
+  url: https://www.npmjs.com/package/exonum-client-anchoring
+  install: npm install exonum-client-anchoring
+  version: 0.7.2
+  published: '2019-02-08'
+  repository: https://github.com/exonum/exonum-client-anchoring
+  description: Exonum anchoring check library
+  official: true
+- language: python
+  registry: pypi
+  name: exonum-python-client
+  url: https://pypi.org/project/exonum-python-client/
+  install: pip install exonum-python-client
+  version: 1.0.1
+  repository: https://github.com/exonum/exonum-python-client
+  description: Exonum Python Light Client
+  official: true
+- language: python
+  registry: pypi
+  name: exonum-launcher
+  url: https://pypi.org/project/exonum-launcher/
+  install: pip install exonum-launcher
+  version: 0.2.0
+  repository: https://github.com/exonum/exonum-launcher
+  description: Exonum Dynamic Services Launcher
+  official: true
+- language: java
+  registry: maven-central
+  name: com.exonum.binding:exonum-java-binding-core
+  url: https://search.maven.org/artifact/com.exonum.binding/exonum-java-binding-core
+  install: '<dependency><groupId>com.exonum.binding</groupId><artifactId>exonum-java-binding-core</artifactId><version>0.10.0</version></dependency>'
+  version: 0.10.0
+  description: Java Binding for the Exonum blockchain framework (core)
+  official: true
+- language: java
+  registry: maven-central
+  name: com.exonum.binding:exonum-java-binding-common
+  url: https://search.maven.org/artifact/com.exonum.binding/exonum-java-binding-common
+  version: 0.10.0
+  description: Common types, serialization and proofs for the Exonum Java Binding
+  official: true
+- language: java
+  registry: maven-central
+  name: com.exonum.binding:exonum-testkit
+  url: https://search.maven.org/artifact/com.exonum.binding/exonum-testkit
+  version: 0.10.0
+  description: TestKit for testing Exonum Java services
+  official: true
+- language: java
+  registry: maven-central
+  name: com.exonum.binding:exonum-java-binding-service-archetype
+  url: https://search.maven.org/artifact/com.exonum.binding/exonum-java-binding-service-archetype
+  version: 0.10.0
+  description: Maven archetype for generating an Exonum Java service project
+  official: true
+- language: java
+  registry: maven-central
+  name: com.exonum.binding:exonum-time-oracle
+  url: https://search.maven.org/artifact/com.exonum.binding/exonum-time-oracle
+  version: 0.10.0
+  description: Time oracle service for the Exonum Java Binding
+  official: true
+- language: rust
+  registry: crates.io
+  name: exonum
+  url: https://crates.io/crates/exonum
+  install: cargo add exonum
+  version: 1.0.0
+  downloads: 106401
+  description: An extensible framework for blockchain software projects.
+  official: true
+- language: rust
+  registry: crates.io
+  name: exonum-node
+  url: https://crates.io/crates/exonum-node
+  version: 1.0.0
+  description: Node of the Exonum blockchain framework.
+  official: true
+- language: rust
+  registry: crates.io
+  name: exonum-cli
+  url: https://crates.io/crates/exonum-cli
+  version: 1.0.0
+  description: Helper crate for secure and convenient configuration of the Exonum node.
+  official: true
+- language: rust
+  registry: crates.io
+  name: exonum-crypto
+  url: https://crates.io/crates/exonum-crypto
+  version: 1.0.0
+  description: Cryptography related types, constants, traits and functions.
+  official: true
+- language: rust
+  registry: crates.io
+  name: exonum-merkledb
+  url: https://crates.io/crates/exonum-merkledb
+  version: 1.0.0
+  description: Persistent storage implementation based on RocksDB providing APIs to work with merkelized
+    data structures.
+  official: true
+- language: rust
+  registry: crates.io
+  name: exonum-rust-runtime
+  url: https://crates.io/crates/exonum-rust-runtime
+  version: 1.0.0
+  description: Runtime for Exonum services written in Rust.
+  official: true
+- language: rust
+  registry: crates.io
+  name: exonum-explorer
+  url: https://crates.io/crates/exonum-explorer
+  version: 1.0.0
+  description: Blockchain explorer utils for the Exonum framework.
+  official: true
+- language: rust
+  registry: crates.io
+  name: exonum-explorer-service
+  url: https://crates.io/crates/exonum-explorer-service
+  version: 1.0.0
+  description: Exonum blockchain explorer, packaged as a service (REST + WebSocket API).
+  official: true
+- language: rust
+  registry: crates.io
+  name: exonum-system-api
+  url: https://crates.io/crates/exonum-system-api
+  version: 1.0.0
+  description: System API plugin for the Exonum framework.
+  official: true
+- language: rust
+  registry: crates.io
+  name: exonum-supervisor
+  url: https://crates.io/crates/exonum-supervisor
+  version: 1.0.0
+  description: Exonum supervisor service (artifact deployment, service lifecycle, configuration).
+  official: true
+- language: rust
+  registry: crates.io
+  name: exonum-testkit
+  url: https://crates.io/crates/exonum-testkit
+  version: 1.0.0
+  description: Testkit for the Exonum blockchain framework, allowing to test service APIs.
+  official: true
+- language: rust
+  registry: crates.io
+  name: exonum-btc-anchoring
+  url: https://crates.io/crates/exonum-btc-anchoring
+  version: 1.0.0
+  description: An Exonum service that provides anchoring to the Bitcoin blockchain.
+  official: true
+- language: rust
+  registry: crates.io
+  name: exonum-time
+  url: https://crates.io/crates/exonum-time
+  version: 1.0.0
+  description: The time oracle service for Exonum.
+  official: true
+x-evidence:
+  fetched: '2026-07-31'
+  registries_probed: [crates.io, npm, pypi, maven-central]
+  not_found:
+  - {registry: npm, name: exonum-js-explorer, status: 404}
+  - {registry: pypi, name: exonum-client, status: 404}

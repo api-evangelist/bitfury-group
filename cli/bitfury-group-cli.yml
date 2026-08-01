@@ -1,0 +1,57 @@
+generated: '2026-07-31'
+method: searched
+source: https://docs.rs/exonum-cli/
+name: exonum-cli
+description: 'The node management tool for the Exonum framework. It provides the standard command set a
+  service binary inherits for generating node configuration, finalizing a validator set, and running the
+  node; it also bundles the explorer service and system API plugin by default, so a node started with it
+  exposes the explorer REST/WebSocket API and the system API with no extra setup.'
+docs:
+- https://docs.rs/exonum-cli/
+- https://exonum.com/doc/version/latest/get-started/install/
+- https://exonum.com/doc/version/latest/get-started/create-service/
+repository: https://github.com/exonum/exonum/tree/master/cli
+version: 1.0.0
+install:
+- method: cargo
+  command: cargo install exonum-cli
+- method: crate
+  command: 'add exonum-cli = "1.0.0" to Cargo.toml and build your service binary on top of it'
+- method: homebrew-tap
+  command: brew tap exonum/exonum
+  note: The exonum/homebrew-exonum tap publishes formulae for build prerequisites.
+commands:
+- name: generate-template
+  group: configuration
+  description: Generate the common part of the nodes configuration.
+- name: generate-config
+  group: configuration
+  description: Generate the public and private configs of the node.
+- name: finalize
+  group: configuration
+  description: Generate the final node configuration using the public configs of the other nodes in the
+    network.
+- name: run
+  group: runtime
+  description: Run the node with the provided node config.
+- name: run-dev
+  group: runtime
+  description: Run the node with an auto-generated config, for local development.
+- name: maintenance
+  group: maintenance
+  description: Perform maintenance actions against a stopped node.
+  subcommands:
+  - {name: clear-cache, description: Clear the consensus messages cache.}
+  - {name: restart-migration, description: Restart a migration script for a named service.}
+related_tools:
+- name: exonum-launcher
+  language: python
+  install: pip install exonum-launcher
+  description: Dynamic service launcher - deploys artifacts and starts service instances against a
+    running network from a YAML manifest.
+  url: https://github.com/exonum/exonum-launcher
+x-evidence:
+  fetched: '2026-07-31'
+  source_files:
+  - https://github.com/exonum/exonum/blob/master/cli/src/command/mod.rs
+  - https://github.com/exonum/exonum/blob/master/cli/src/command/maintenance.rs

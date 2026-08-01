@@ -1,0 +1,61 @@
+generated: '2026-07-31'
+method: derived
+source: grpc/, authentication/bitfury-group-authentication.yml, conventions/bitfury-group-conventions.yml
+scope: Exonum framework and its node HTTP/WebSocket API
+compliance_program:
+  published: false
+  note: Bitfury publishes no certifications (no SOC 2, ISO 27001, PCI DSS, HIPAA or FedRAMP claim) and no
+    trust center; probe-security-programs.py found neither on 2026-07-31. No Compliance pointer is
+    emitted.
+standards:
+- id: protobuf3
+  conforms: true
+  evidence: 'All on-chain messages are defined in proto3 and published as a standalone schema package
+    (exonum/exonum-proto-sources); saved verbatim under grpc/.'
+- id: semver
+  conforms: true
+  evidence: The project states it adheres to Semantic Versioning 2.0.0 and embeds a semantic version in
+    every service artifact identifier.
+- id: ed25519
+  conforms: true
+  evidence: Transactions are authenticated with Ed25519 signatures; exonum.crypto.PublicKey and Signature
+    are first-class message types.
+- id: noise-protocol
+  conforms: true
+  evidence: All peer-to-peer full-node connections are encrypted with the Noise Protocol.
+- id: bitcoin-anchoring
+  conforms: true
+  evidence: 'exonum-btc-anchoring anchors the permissioned chain''s state hashes into the Bitcoin
+    blockchain using multisignature transactions (BIP-141 segwit helpers in btc-transaction-utils).'
+- id: apache-2.0
+  conforms: true
+  evidence: The framework and the Protobuf sources are licensed Apache-2.0.
+- id: openapi
+  conforms: false
+  evidence: No OpenAPI or Swagger description is published for the node HTTP API; the reference is
+    hand-written crate documentation.
+- id: asyncapi
+  conforms: false
+  evidence: The WebSocket pub/sub surface is documented in prose only; no AsyncAPI document exists.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors use the Protobuf-derived ExecutionError envelope, not application/problem+json.
+- id: oauth2
+  conforms: false
+  evidence: No oauth2 security scheme exists anywhere in the HTTP surface.
+- id: oidc
+  conforms: false
+  evidence: No OpenID Connect support.
+- id: rfc8594-sunset
+  conforms: false
+  evidence: 'The versioning guide recommends that deprecated endpoints emit a Deprecation or Warning
+    header, but the framework sends neither and no Sunset header is implemented.'
+- id: json-api
+  conforms: false
+  evidence: Responses are service-defined JSON shapes, not JSON:API documents.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on both bitfury.com and exonum.com.
+x-evidence:
+  fetched: '2026-07-31'
+  derived_from: [grpc/, https://exonum.com/doc/version/latest/, https://github.com/exonum/exonum]
