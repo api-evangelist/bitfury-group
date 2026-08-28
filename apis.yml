@@ -9,6 +9,18 @@ description: 'Bitfury Group is a blockchain technology company founded in 2011 a
   time-oracle services, and ships light clients for JavaScript, Python and Java plus a Rust crate family,
   a node CLI and published Protobuf message definitions. Bitfury also anchors permissioned chains into
   the Bitcoin blockchain and incubates Cipher Mining, Crystal, LiquidStack and Axelera AI.'
+deliveryModel:
+  model: unknown
+  open_source: unknown
+  commercial: true
+  callable_host: false
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - pricing
+  - repository-unlicensed
+  generated: '2026-08-28'
+  method: derived
 image: https://bitfury.com/assets/img/logo.svg
 url: https://raw.githubusercontent.com/api-evangelist/bitfury-group/refs/heads/main/apis.yml
 x-type: company
