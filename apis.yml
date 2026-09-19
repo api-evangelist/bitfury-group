@@ -52,7 +52,7 @@ tags:
 - Distributed Ledger
 - Permissioned Blockchain
 - Open-Source
-- Data Centers
+- Data-Center
 - Mining Hardware
 - Enterprise Blockchain
 tags_raw:
@@ -78,6 +78,11 @@ apis:
     URL - each operator runs their own node and chooses its public and private ports.'
   humanURL: https://exonum.com/doc/version/latest/
   tags:
+  - Blockchain
+  - Permissioned Blockchain
+  - Explorer
+  - WebSocket
+  tags_raw:
   - Blockchain
   - Permissioned Blockchain
   - Explorer
