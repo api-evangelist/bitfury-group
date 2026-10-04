@@ -10,16 +10,19 @@ description: 'Bitfury Group is a blockchain technology company founded in 2011 a
   a node CLI and published Protobuf message definitions. Bitfury also anchors permissioned chains into
   the Bitcoin blockchain and incubates Cipher Mining, Crystal, LiquidStack and Axelera AI.'
 deliveryModel:
-  model: unknown
+  model: saas
+  license_evidence:
+    not_product:
+    - exonum/exonum
   open_source: unknown
   commercial: true
   callable_host: false
-  label: Delivery model not determined — needs a product licence on record
+  label: Hosted service · you call their endpoint
   confidence: low
   source:
   - pricing
-  - repository-unlicensed
-  generated: '2026-08-28'
+  - repository-not-product
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: unknown
@@ -51,8 +54,8 @@ tags:
 - Cryptocurrency
 - Distributed Ledger
 - Permissioned Blockchain
-- Open-Source
-- Data-Center
+- Open Source
+- Data Center
 - Mining Hardware
 - Enterprise Blockchain
 tags_raw:
@@ -66,6 +69,8 @@ tags_raw:
 - Data Centers
 - Mining Hardware
 - Enterprise Blockchain
+- Open-Source
+- Data-Center
 apis:
 - aid: bitfury-group:exonum-node-http-api
   name: Exonum Node HTTP API
