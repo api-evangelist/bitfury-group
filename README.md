@@ -64,30 +64,101 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Bitfury Group is a blockchain technology company founded in 2011 as one of the earliest Bitcoin mining hardware makers and full-cycle infrastructure providers, and now operating as a technology incubator headquartered in London. Its developer-facing surface is **Exonum**, the open-source (Apache-2.0) framework Bitfury Group Limited built for private and permissioned blockchain applications.
+Bitfury Group is a blockchain technology company founded in 2011 as one of the earliest Bitcoin mining hardware makers and full-cycle infrastructure providers, and now operating as a technology incubator headquartered in London with data-center and hardware operations behind Bitcoin transaction processing. Its developer-facing surface is Exonum, the open-source (Apache-2.0) framework Bitfury Group Limited built for private and permissioned blockchain applications: an Exonum node exposes REST and WebSocket endpoints through its explorer service, system API plugin, supervisor and time-oracle services, and ships light clients for JavaScript, Python and Java plus a Rust crate family, a node CLI and published Protobuf message definitions. Bitfury also anchors permissioned chains into the Bitcoin blockchain and incubates Cipher Mining, Crystal, LiquidStack and Axelera AI.
 
-- Company: https://bitfury.com/
-- Exonum: https://exonum.com/ — docs at https://exonum.com/doc/version/latest/
-- Source: https://github.com/exonum
-- Secondary market listing: https://forgeglobal.com/bitfury-group_stock/
+**Areas:** Company · Blockchain · Bitcoin · Cryptocurrency · Distributed Ledger · Permissioned Blockchain · Open Source · Data Center · Mining Hardware · Enterprise Blockchain
 
-## What is in this repo
+## BitFury on APIs.io
 
-| Directory | What it holds |
+Everything profiled for BitFury is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/bitfury-group/](https://apis.io/providers/bitfury-group/)** — or go straight to one of the APIs or properties below.
+
+### APIs (1)
+
+- [Exonum Node HTTP API](https://apis.io/apis/bitfury-group/exonum-node-http-api/) — The HTTP surface an Exonum node serves. The explorer service exposes REST endpoints under /api/explorer (blocks, block, transactions, call_status) plus a…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Bitfury Group Exonum Events](https://apis.io/asyncapis/bitfury-group/bitfury-group-exonum-events/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Bitfury Group Authentication](https://apis.io/security/bitfury-group/bitfury-group-authentication/)
+- [Bitfury Group Domain Security](https://apis.io/security/bitfury-group/bitfury-group-domain-security/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://bitfury.com/)
+- [Documentation](https://exonum.com/doc/version/latest/)
+- [Getting started](https://exonum.com/doc/version/latest/get-started/design-overview/)
+- [API reference](https://docs.rs/exonum-explorer-service/latest/exonum_explorer_service/api/index.html)
+- [Support](https://gitter.im/exonum/exonum)
+- [Changelog](https://github.com/exonum/exonum/blob/master/CHANGELOG.md)
+- [Blog](https://bitfury.com/news)
+- [Terms of service](https://bitfury.com/terms-of-service)
+- [Privacy policy](https://bitfury.com/privacy-policy)
+- [GitHub](https://github.com/exonum)
+
+## API Evangelist rating
+
+**Kin Score 41.5** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
 |---|---|
-| `grpc/` | The Exonum Protobuf message definitions, saved verbatim from `exonum/exonum-proto-sources` |
-| `packages/` | Verified Rust, JavaScript, Python and Java packages published by the Exonum team |
-| `cli/` | The `exonum-cli` node management command surface |
-| `sandbox/` | The testkit and `run-dev` local development surface (no hosted sandbox exists) |
-| `authentication/` | The Ed25519-signature / public-vs-private-server authorization model |
-| `conventions/` | Endpoint layout, pagination, consistency model, error envelope, proofs |
-| `errors/` | The `ExecutionError` envelope plus the full core and common error code lists |
-| `data-model/` | Entity graph derived from the Protobuf definitions |
-| `asyncapi/` | The explorer WebSocket pub/sub event surface (no AsyncAPI document is published) |
-| `lifecycle/`, `changelog/` | Versioning, deprecation guidance, release history |
-| `conformance/`, `security/`, `well-known/` | Standards posture and probe records |
-| `llms/` | Generated `llms.txt` for agents |
+| Discoverability | 57.1 |
+| Contract quality | 39.0 |
+| Contract governance | 4.5 |
+| Operational transparency | 39.5 |
+| Developer ergonomics | 73.8 |
+| Access clarity | 21.1 |
 
-## Notes
+**Agent readiness 20.5** — agent-aware
 
-Exonum is **self-hosted software, not a hosted API** — there is no vendor base URL, signup, API key or sandbox tenant. Bitfury publishes no OpenAPI, GraphQL, AsyncAPI or MCP definition, no `/.well-known/` documents and no A2A agent card; none were authored on its behalf. The last Exonum release is 1.0.0 (2020-03-31).
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | yes |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 24.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/bitfury-group/](https://apis.io/providers/bitfury-group/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for BitFury: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/bitfury-group/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
